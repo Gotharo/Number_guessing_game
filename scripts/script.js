@@ -4,6 +4,7 @@ let playerGuess = 0;
 let input = document.getElementById("input");
 let output = document.getElementById("output");
 let state = document.getElementById("status");
+let arrow = document.getElementById("arrow");
 
 let guessesRemaining = 10;
 let guessesMade = 0;
@@ -77,6 +78,11 @@ function validateInput() {
     }else {
         playGame();
     }
+    render();
+}
 
+function render() {
+
+    arrow.style.left = playerGuess * 3 + "px"
 }
 
