@@ -8,15 +8,13 @@ let state = document.getElementById("status");
 let guessesRemaining = 10;
 let guessesMade = 0;
 let gameState = "";
+let gameWon = false;
 
 let button = document.getElementById("button");
 button.style.cursor = "pointer";
 button.addEventListener("click", clickHandler, false);
 
-function clickHandler() {
-    console.log("estoy haciendo click");
-    playGame()
-}
+
 
 function playGame() {
 
@@ -24,18 +22,49 @@ function playGame() {
     guessesMade = guessesMade + 1;
     gameState = `Guess: ${guessesMade}, Remanning: ${guessesRemaining} `;
 
-
-    playerGuess = parseInt(input.value);
-
-    if( playerGuess < misteryNumber) {
+    if (playerGuess < misteryNumber) {
         output.innerHTML = "That's to Low.";
         state.innerHTML = gameState;
+        if (guessesRemaining < 1) {
+            endGame();
+
+        }
     } else if (playerGuess > misteryNumber) {
         output.innerHTML = "That's too High.";
         state.innerHTML = gameState;
+        if (guessesRemaining < 1) {
+            endGame();
 
-    }else if ( playerGuess === misteryNumber) {
-        output.innerHTML = "you got it Mate!!";
+        }
+
+    } else if (playerGuess === misteryNumber) {
+        output.innerHTML = "You got it Mate!!";
+        gameWon = true;
+        endGame();
     }
-  
+
+}
+
+function endGame() {
+
+    if (gameWon) {
+        output.innerHTML = `Yes!, the it's ${misteryNumber}! <br> It only took you ${guessesMade} guesses`;
+    } else {
+        output.innerHTML = `NO more guesses left! the number was ${misteryNumber}.`;
+    }
+
+}
+
+function clickHandler() {
+    validateInput();
+}
+
+function validateInput() {
+    playerGuess = parseInt(input.value);
+    if(isNaN(playerGuess)) {
+        output.innerHTML = "Please enter a Number";
+    }else {
+        playGame();
+    }
+
 }
