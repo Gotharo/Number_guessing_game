@@ -1,4 +1,4 @@
-let misteryNumber = 50;
+let misteryNumber =Math.floor(Math.random() * 100);
 let playerGuess = 0;
 
 let input = document.getElementById("input");
@@ -14,7 +14,7 @@ let button = document.getElementById("button");
 button.style.cursor = "pointer";
 button.addEventListener("click", clickHandler, false);
 
-
+window.addEventListener("keydown", keyDownHandler, false);
 
 function playGame() {
 
@@ -53,6 +53,17 @@ function endGame() {
         output.innerHTML = `NO more guesses left! the number was ${misteryNumber}.`;
     }
 
+    button.removeEventListener("click", clickHandler, false);
+    window.removeEventListener("keydown", keyDownHandler, false);
+
+    input.disable = true;
+
+}
+
+function keyDownHandler(event) {
+    if(event.keyCode === 13) {
+        validateInput();
+    }
 }
 
 function clickHandler() {
@@ -68,3 +79,4 @@ function validateInput() {
     }
 
 }
+
